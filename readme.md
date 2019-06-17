@@ -2,11 +2,71 @@
 
 - [how to create a simple laravel test][simple-test]
 - [how to run php unit][run-unit]
-- [what is difference between feature and unit][fet-unit]
+- [what is the difference between feature and unit][fet-unit]
+- [how to create a simple HTTP request][http-req]
 
+[http-req]:#how-to-create-a-simple-http-request
+[fet-unit]:#what-is-the-difference-between-feature-and-unit
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+
+### how to create a simple http request
+
+<details>
+<summary>
+View Content
+</summary>
+
+
+
+```php
+namespace Tests\Feature;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class userTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testHomepage()
+    {
+        $response = $this->get("/");
+
+        $response->assertStatus(200);
+}
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### what is the difference between feature and unit
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [How to write tests for Laravel applications](https://blog.pusher.com/tests-laravel-applications/)
+
+**Unit Testing:** Unit testing focuses on testing the functionality of a little part of your application like a handful of methods or a class.
+
+**Feature Testing:** Tests that an entire feature actually works. At this point, you can test many classes and methods, or an entire package depending on how your application is structured.
+
+</details>
+
+[go back :house:][home]
+
 
 
 ### how to run php unit
