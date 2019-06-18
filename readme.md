@@ -6,6 +6,16 @@
 - [how to create a simple HTTP request][http-req]
 - [how to generate fake data][gen-data]
 
+## Assertions
+- [assertStatus][a-status]
+- assertSee
+- assertContains
+- assertArrayHasKey
+- assertIsObject
+
+## Dusk
+
+[a-status]:#assertstatus
 [gen-data]:#how-to-generate-fake-data
 [http-req]:#how-to-create-a-simple-http-request
 [fet-unit]:#what-is-the-difference-between-feature-and-unit
@@ -14,8 +24,34 @@
 [home]:#laravel-testing
 
 
+### assertStatus
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.8/http-tests#assert-status)
+
+
+```
+$response->assertStatus($code);
+```
+
+</details>
+
+[go back :house:][home]
+
 
 ### How to generate fake data
+
+
+<details>
+<summary>
+View Content
+</summary>
+
 
 1. create a factory model, also make sure that you have the database
 and model created
@@ -131,6 +167,8 @@ php artisan db:seed
 ```
 
 8. And that will create the rows of data
+
+</details>
 
 [go back :house:][home]
 
