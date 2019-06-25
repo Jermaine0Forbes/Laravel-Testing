@@ -15,6 +15,9 @@
 
 ## Dusk
 
+- how to install dusk
+
+
 [a-status]:#assertstatus
 [gen-data]:#how-to-generate-fake-data
 [http-req]:#how-to-create-a-simple-http-request
