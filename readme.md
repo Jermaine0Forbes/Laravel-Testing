@@ -15,9 +15,9 @@
 
 ## Dusk
 
-- how to install dusk
+- [how to install dusk][inst-dusk]
 
-
+[inst-dusk]:#how-to-install-dusk
 [a-status]:#assertstatus
 [gen-data]:#how-to-generate-fake-data
 [http-req]:#how-to-create-a-simple-http-request
@@ -26,6 +26,48 @@
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
 
+
+### how to install dusk
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.6/dusk)
+
+**This is how you install laravel dusk in laravel 5.6**
+
+1. Install `laravel/dusk`
+
+```
+composer require --dev laravel/dusk:"^4.0"
+```
+
+2. Then install dusk with php artisan
+
+```
+php artisan dusk:install
+```
+
+3. Now, this version of dusk will only work in chrome that has the version 70-73.
+So if you have a chrome version higher than that, then you have to uninstall  chrome.
+So in the start menu type in "chrome", and right-click the icon to uninstall it.
+
+4. After chrome is uninstalled, go to this [link](https://www.slimjet.com/chrome/google-chrome-old-version.php) and install a version of chrome between 70-73
+
+5. After that chrome version installed, add this into the terminal
+
+```
+php artisan dusk
+```
+
+6. Hopefully, the test will pass
+
+</details>
+
+[go back :house:][home]
 
 ### assertStatus
 
