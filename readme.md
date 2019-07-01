@@ -14,7 +14,6 @@
 - assertIsObject
 
 ## Dusk
-
 - [how to install dusk][inst-dusk]
 
 [inst-dusk]:#how-to-install-dusk
