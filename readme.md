@@ -8,14 +8,17 @@
 
 ## Assertions
 - [assertStatus][a-status]
-- assertSee
+- [assertSee][a-see]
 - assertContains
-- assertArrayHasKey
+- [assertArrayHasKey][a-arr-key]
 - [assertIsObject][a-obj]
 
 ## Dusk
 - [how to install dusk][inst-dusk]
 
+
+[a-arr-key]:#assertArrayHasKey
+[a-see]:#assertSee
 [a-obj]:#assertIsObject
 [inst-dusk]:#how-to-install-dusk
 [a-status]:#assertstatus
@@ -25,6 +28,130 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+
+### assertSee
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.8/http-tests#assert-see)
+
+**In ProductTest**
+
+```php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ProductTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testKey()
+    {
+       $response = $this->get("/products/1");
+       $this->assertArrayHasKey("id",$response); //returns true if id is a key value
+    }
+}
+```
+
+**In ProductController**
+
+```php
+public function show($id)
+{
+    $soda = Soda::find($id);
+
+
+  return view('single-product',["soda" => $soda]);
+}
+
+
+```
+
+**In view**
+
+```php
+@extends('layouts.default')
+@section('main')
+Product number: {{$soda->id}}
+<p>Name: {{$soda->name}}</p>
+<p>Company: {{$soda->company}}</p>
+<p>Ounces: {{$soda->ounces}}</p>
+<p>Price: {{$soda->price}}</p>
+
+@stop
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### assertArrayHasKey
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [phpunit](https://phpunit.readthedocs.io/en/8.2/assertions.html#assertarrayhaskey)
+
+
+**In ProductTest**
+
+```
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ProductTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testKey()
+    {
+       $response = $this->get("/products/1");
+       $this->assertArrayHasKey("id",$response); //returns true if id is a key value
+    }
+}
+
+```
+**In ProductController**
+
+```
+public function show($id)
+{
+    $soda = Soda::find($id)->toArray(); // transforms data into an associative array
+
+   echo $soda;
+}
+
+```
+
+</details>
+
+[go back :house:][home]
+
 
 ### assertIsObject
 
