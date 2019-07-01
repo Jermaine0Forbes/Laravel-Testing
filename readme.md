@@ -11,11 +11,12 @@
 - assertSee
 - assertContains
 - assertArrayHasKey
-- assertIsObject
+- [assertIsObject][a-obj]
 
 ## Dusk
 - [how to install dusk][inst-dusk]
 
+[a-obj]:#assertIsObject
 [inst-dusk]:#how-to-install-dusk
 [a-status]:#assertstatus
 [gen-data]:#how-to-generate-fake-data
@@ -24,6 +25,95 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+### assertIsObject
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [phpunit](https://phpunit.readthedocs.io/en/8.2/assertions.html#assertisobject)
+
+If you are just checking information and echoing out the information
+in an object **assertIsObject** this is the best way to check if it is an object
+
+**In ProductTest**
+
+```
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class ProductTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+       $response = $this->get("/products/1");
+
+       $this->assertIsObject($response); // this will return true
+       $response->assertSee('"id"'); // this will return false even though id is within the object
+    }
+}
+
+
+
+```
+
+
+**In the controller**
+
+```
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Soda as Soda;
+
+class ProductController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+     public function show($id)
+     {
+         $soda = Soda::find($id);
+
+       echo $soda; // outputs the object
+     }
+}
+```
+
+**In routes**
+
+```
+
+Route::prefix("products")->group(function(){
+  Route::get('/', "ProductController@index");
+  Route::get('{id}', "ProductController@show");// grabs the id of the product
+});
+
+```
+
+
+
+
+</details>
+
+[go back :house:][home]
 
 
 ### how to install dusk
