@@ -15,8 +15,11 @@
 
 ## Dusk
 - [how to install dusk][inst-dusk]
+- [how to generate a dusk test][gen-dusk]
+- [how to click on a link][click-dusk]
 
-
+[click-dusk]:#how-to-click-on-a-link
+[gen-dusk]:#how-to-generate-a-dusk-test
 [a-arr-key]:#assertArrayHasKey
 [a-see]:#assertSee
 [a-obj]:#assertIsObject
@@ -28,6 +31,119 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+### how to click a link
+
+<details>
+<summary>
+View Content
+</summary>
+
+
+**In LoginTest**
+
+```php
+
+
+namespace Tests\Browser;
+
+use Tests\DuskTestCase;
+use Laravel\Dusk\Browser;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+
+class LoginTest extends DuskTestCase
+{
+    /**
+     * A Dusk test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit('/')//visits the home page
+                    ->clickLink('sign up')// clicks on a link that says sign up
+                    ->assertSee("Username");// and checks if there is text that says Username
+        });
+    }
+}
+```
+**In Homepage**
+
+```html
+...
+<header class="bg-dark d-flex justify-content-center">
+  <nav class="nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="/">home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">login</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="/signup">sign up</a> <!-- dusk will find the link and click on it -->
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">facilities</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">help</a>
+  </li>
+</ul>
+</header>
+...
+```
+
+**In Signup Page**
+
+```html
+@extends('layout')
+
+@section("main")
+  <section class="container">
+    <form class="" action="" method="post">
+      <div class="form-group row flex-column">
+        <label for="">Username</label> <!-- this is the Username that dusk sees   -->
+        <input  class="form-control col-4" type="text" name="username" value="">
+      </div>
+      <div class="form-group row flex-column">
+        <label for="">Password</label>
+        <input  class="form-control col-4" type="text" name="password" value="">
+      </div>
+      <div class="form-group row flex-column">
+        <label for="">Email</label>
+        <input  class="form-control col-4" type="email" name="email" value="">
+      </div>
+      <div class="form-group row">
+        <input  class="btn btn-primary" type="submit" name="submit" value="Submit">
+      </div>
+</form>
+  </section>
+@stop
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+
+### how to generate a dusk test
+
+<details>
+<summary>
+View Content
+</summary>
+
+
+```
+php artisan make:dusk  LoginTest
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### assertSee
