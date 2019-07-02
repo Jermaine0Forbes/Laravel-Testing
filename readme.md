@@ -17,7 +17,13 @@
 - [how to install dusk][inst-dusk]
 - [how to generate a dusk test][gen-dusk]
 - [how to click on a link][click-dusk]
+- [how to type in information into an input element][type-dusk]
+- [how to click on the submit button from a form][click-dusk]
+- [how to fill out and submit a form][fillout-dusk]
 
+[fillout-dusk]:#how-to-fill-out-and-submit-a-form
+[click-dusk]:#how-to-click-on-the-submit-button
+[type-dusk]:#how-to-type-information-into-a-field
 [a-contains]:#assertContains
 [click-dusk]:#how-to-click-on-a-link
 [gen-dusk]:#how-to-generate-a-dusk-test
@@ -32,6 +38,189 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+
+### how to fill out and submit a form
+
+<details>
+<summary>
+View Content
+</summary>
+
+
+### What is happening?
+1. Once dusk starts it visists the Homepage
+2. Click on the "sign up" link
+3. Type in the values to the username,email, and password field
+4. Clicks on the submit button
+5. In the controller it returns the email, and dusk is checking if they see this value
+
+
+**In LoginTest**
+
+```php
+public function testExample()
+{
+        $browser->visit('/')
+                ->clickLink('sign up')
+                ->type("username", "jermaine")
+                ->type("email", "skivac3@gmail.com")
+                ->type("password", "password")
+                ->click(".btn.btn-primary")
+                ->assertSee("skivac3@gmail.com");
+    });
+}
+}
+```
+
+**In signup.blade**
+
+```html
+<form class="" action="" method="post">
+  @csrf
+  <div class="form-group row flex-column">
+    <label for="">Username</label>
+    <input  class="form-control col-4" type="text" name="username" value=""><!-- dusk types in this field -->
+  </div>
+  <div class="form-group row flex-column">
+    <label for="">Password</label>
+    <input  class="form-control col-4" type="text" name="password" value=""><!-- dusk types in this field -->
+  </div>
+  <div class="form-group row flex-column">
+    <label for="">Email</label>
+    <input  class="form-control col-4" type="email" name="email" value=""><!-- dusk types in this field -->
+  </div>
+  <div class="form-group row">
+    <input  class="btn btn-primary" type="submit"  value="Submit"><!-- dusk click on this button -->
+  </div>
+</form>
+```
+**In LoginController**
+
+```php
+public function createUser(Request $req){
+
+
+  return $req->email; // returns the email "skivac3@gmail.com"
+}
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to click on the submit button
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.6/dusk#clicking-links)
+
+**syntax**
+`$browser->click(selector)`
+
+The click method finds the selector within the page and clicks on the element
+
+**In LoginTest**
+
+```php
+public function testExample()
+{
+    $this->browse(function (Browser $browser) {
+        $browser->visit('/')// visits homepage
+                ->clickLink('sign up')// clicks signup link
+                ->type("username", "jermaine")//types my into the username field
+                ->click(".btn.btn-primary");// finds a select that has '.btn.btn-primary' and clicks it
+    });
+}
+}
+```
+
+**In signup.blade**
+
+```html
+<form class="" action="" method="post">
+  @csrf
+  <div class="form-group row flex-column">
+    <label for="">Username</label>
+    <input  class="form-control col-4" type="text" name="username" value="">
+  </div>
+  <div class="form-group row flex-column">
+    <label for="">Password</label>
+    <input  class="form-control col-4" type="text" name="password" value="">
+  </div>
+  <div class="form-group row flex-column">
+    <label for="">Email</label>
+    <input  class="form-control col-4" type="email" name="email" value="">
+  </div>
+  <div class="form-group row">
+    <input  class="btn btn-primary" type="submit"  value="Submit"><!-- this is the button you will click -->
+  </div>
+</form>
+```
+
+</details>
+
+[go back :house:][home]
+
+### how to type information into a field
+
+<details>
+<summary>
+View Content
+</summary>
+
+**syntax**
+`$browser->type(fieldName, textValue)`
+
+The type method will insert text into an input field and also a textarea. It can
+type the proper information in by locating the name of the field
+
+**In ProductTest**
+```php
+public function testExample()
+{
+    $this->browse(function (Browser $browser) {
+        $browser->visit('/') // visits the homepage
+                ->clickLink('sign up') // click the sign up link
+                ->type("username", "jermaine") // inserts my name into input field
+                ->assertInputValue("username", "jermaine");//checks to see if my name is inside the username field
+    });
+}
+```
+
+**In signup.blade**
+
+```html
+<form class="" action="" method="post">
+  @csrf
+  <div class="form-group row flex-column">
+    <label for="">Username</label>
+    <input  class="form-control col-4" type="text" name="username" value=""><!-- inserts information into this field -->
+  </div>
+  <div class="form-group row flex-column">
+    <label for="">Password</label>
+    <input  class="form-control col-4" type="text" name="password" value="">
+  </div>
+  <div class="form-group row flex-column">
+    <label for="">Email</label>
+    <input  class="form-control col-4" type="email" name="email" value="">
+  </div>
+  <div class="form-group row">
+    <input  class="btn btn-primary" type="submit"  value="Submit">
+  </div>
+</form>
+```
+
+
+</details>
+
+[go back :house:][home]
+
 
 
 ### assertContains
