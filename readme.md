@@ -9,7 +9,7 @@
 ## Assertions
 - [assertStatus][a-status]
 - [assertSee][a-see]
-- assertContains
+- [assertContains][a-contains]
 - [assertArrayHasKey][a-arr-key]
 - [assertIsObject][a-obj]
 
@@ -18,6 +18,7 @@
 - [how to generate a dusk test][gen-dusk]
 - [how to click on a link][click-dusk]
 
+[a-contains]:#assertContains
 [click-dusk]:#how-to-click-on-a-link
 [gen-dusk]:#how-to-generate-a-dusk-test
 [a-arr-key]:#assertArrayHasKey
@@ -31,6 +32,115 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+
+### assertContains
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [phpunit](https://phpunit.readthedocs.io/en/8.2/assertions.html#assertcontains)
+
+`assertContains(valueInArray,Array);`
+
+This assertion looks for the element within an array, and if you have an associative
+array it searches through the value of the array.
+
+<details>
+<summary>
+Example 1
+</summary>
+
+**In ProductController**
+
+```php
+public function show($id)
+{
+    $soda = Soda::find($id)->toArray();
+    return $soda;// this will return an object for some reason
+}
+```
+
+**In ProductTest**
+
+```php
+public function testExample()
+{
+   $response = $this->get("/products/1");
+
+   $arr = (array) $response;//converts into an array
+   $this->assertContains("mountain dew",$arr); // this will return failure, even though the value is in the array
+}
+
+```
+</details>
+
+
+<details>
+<summary>
+Example 2
+</summary>
+
+**In ProductController**
+
+```php
+public function show($id)
+{
+    $soda = Soda::find($id)->toArray();
+    return $soda;// this will return an object for some reason
+}
+```
+
+**In ProductTest**
+
+```php
+public function testExample()
+{
+  // this will return failure because it does not search for a key in an associative array
+  $this->assertContains("name",["company" => "mountain dew", "id" => "1", "name" =>"product"]);
+}
+
+```
+
+</details>
+
+
+<details>
+<summary>
+Example 3
+</summary>
+
+**In ProductController**
+
+```php
+public function show($id)
+{
+    $soda = Soda::find($id)->toArray();
+    return $soda;// this will return an object for some reason
+}
+```
+
+**In ProductTest**
+
+```php
+public function testExample()
+{
+  // this will return true because this a value
+  $this->assertContains("mountain dew",["company" => "mountain dew", "id" => "1", "name" =>"product"]);
+}
+
+```
+</details>
+
+
+
+</details>
+
+[go back :house:][home]
+
 
 ### how to click a link
 
