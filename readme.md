@@ -14,6 +14,8 @@
 - [assertIsObject][a-obj]
 
 ## Database
+- [check if a value is inside a database][check-db]
+- [assert if a value is not in a database][no-db]
 
 ## Dusk
 - [how to install dusk][inst-dusk]
@@ -24,6 +26,8 @@
 - [how to fill out and submit a form][fillout-dusk]
 - [the different types of clicking][diff-click]
 
+[no-db]:#assert-if-a-value-is-not-in-a-database
+[check-db]:#check-if-a-value-is-inside-a-database
 [diff-click]:#the-different-types-of-clicking
 [fillout-dusk]:#how-to-fill-out-and-submit-a-form
 [click-dusk]:#how-to-click-on-the-submit-button
@@ -42,6 +46,66 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+
+
+### assert if a value is not in a database
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.8/database-testing)
+
+```php
+public function testExample()
+{
+  //if the sodas table have these values for a specific row, then it will assert true
+  $this->assertDatabaseHas("sodas",[
+    "name" => "Product - #7465",
+  "company" =>  "mountain dew"
+  ]);
+}
+}
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### check if a value is inside a database
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.8/database-testing)
+
+**syntax**
+
+`$this->assertDatabaseHas($table, $array)`
+
+```php
+public function testExample()
+{
+  //if the sodas table have these values for a specific row, then it will assert true
+  $this->assertDatabaseHas("sodas",[
+    "name" => "Product - #7465",
+  "company" =>  "mountain dew"
+  ]);
+}
+}
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### The different types of clicking
