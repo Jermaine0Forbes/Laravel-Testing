@@ -55,7 +55,7 @@ There are three different types of clicking that I've seen thus far, and that is
 **clickLink**, **click**, and **press**.
 
 **reference**
-- []()
+- [laravel](https://laravel.com/docs/5.6/dusk#using-forms)
 
 <details>
 <summary>
@@ -68,7 +68,7 @@ The **clickLink** method finds any link that has the text inserted into the para
 
 `$browser->clickLink($linkText);`
 
-**In testing file** 
+**In testing file**
 
 ```php
 $browser->visit('/')
@@ -79,6 +79,8 @@ $browser->visit('/')
 
 ```
 
+**In the homepage**
+
 ```html
 <nav class="nav">
 <li class="nav-item">
@@ -88,7 +90,7 @@ $browser->visit('/')
   <a class="nav-link active" href="#">login</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link active" href="/signup">sign up</a>
+  <a class="nav-link active" href="/signup">sign up</a><!-- dusk will find this link and click it -->
 </li>
 </nav>
 ```
@@ -99,9 +101,66 @@ $browser->visit('/')
 With click
 </summary>
 
+With click, there are two ways to get dusk to click on a specific element. One
+method is to enter the selector that you want to be clicked. And the second way
+is to create a dusk selector in the view
+
+
+
+**In the test file**
+
 ```php
+$browser->visit('/')
+        ->clickLink('sign up')
+        ->type("username", "jermaine")
+        ->click(".btn.btn-primary")// this will find the selector on the page and click it
+         ->assertSee("skivac3@gmail.com");
 
 ```
+
+**In the view**
+
+```html
+...
+
+<div class="form-group row flex-column">
+  <label for="">Email</label>
+  <input  class="form-control col-4" type="email" name="email" value="">
+</div>
+<div class="form-group row">
+  <input  class="btn btn-primary" type="submit"  value="Submit"><!-- this is what dusk clicks on -->
+</div>
+</form>
+```
+
+### While using the dusk selector
+
+**In the test file**
+
+```php
+$browser->visit('/')
+        ->clickLink('sign up')
+        ->type("username", "jermaine")
+        ->click("@submit-btn")// this is the dusk selector
+         ->assertSee("skivac3@gmail.com");
+
+```
+
+**In the view**
+
+```html
+...
+
+<div class="form-group row flex-column">
+  <label for="">Email</label>
+  <input  class="form-control col-4" type="email" name="email" value="">
+</div>
+<div class="form-group row">
+  <input  dusk="submit-btn" class="btn btn-primary" type="submit"  value="Submit"><!-- this is what dusk clicks on -->
+</div>
+</form>
+```
+
 
 </details>
 
@@ -110,8 +169,35 @@ With click
 With press
 </summary>
 
-```php
+Finds the name of a button and presses it
 
+**syntax**
+
+`$browser->press(btnText)`
+
+**In the test file**
+
+```php
+$browser->visit('/')
+        ->clickLink('sign up')
+        ->type("username", "jermaine")
+        ->type("email", "skivac3@gmail.com")
+        ->type("password", "password")
+        ->press("Submit") // finds a button that says submit and presses it
+        ->assertSee("skivac3@gmail.com");
+```
+
+**In the view**
+
+```html
+<div class="form-group row flex-column">
+  <label for="">Email</label>
+  <input  class="form-control col-4" type="email" name="email" value="">
+</div>
+<div class="form-group row">
+  <input  dusk="submit-btn" class="btn btn-primary" type="submit"  value="Submit"><!-- this is what dusk clicks on -->
+</div>
+</form>
 ```
 
 </details>
