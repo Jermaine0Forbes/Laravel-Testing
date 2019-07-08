@@ -22,7 +22,9 @@
 - [how to type in information into an input element][type-dusk]
 - [how to click on the submit button from a form][click-dusk]
 - [how to fill out and submit a form][fillout-dusk]
+- [the different types of clicking][diff-click]
 
+[diff-click]:#the-different-types-of-clicking
 [fillout-dusk]:#how-to-fill-out-and-submit-a-form
 [click-dusk]:#how-to-click-on-the-submit-button
 [type-dusk]:#how-to-type-information-into-a-field
@@ -42,19 +44,79 @@
 [home]:#laravel-testing
 
 
-### tit
+### The different types of clicking
 
 <details>
 <summary>
 View Content
 </summary>
 
+There are three different types of clicking that I've seen thus far, and that is
+**clickLink**, **click**, and **press**.
+
 **reference**
 - []()
+
+<details>
+<summary>
+With clickLink
+</summary>
+
+The **clickLink** method finds any link that has the text inserted into the parameter
+
+**syntax**
+
+`$browser->clickLink($linkText);`
+
+**In testing file** 
+
+```php
+$browser->visit('/')
+        ->clickLink('sign up')// this will find the link that says sign up
+        ->type("username", "jermaine")
+        ->click(".btn.btn-primary")
+         ->assertSee("skivac3@gmail.com");
+
+```
+
+```html
+<nav class="nav">
+<li class="nav-item">
+  <a class="nav-link active" href="/">home</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" href="#">login</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" href="/signup">sign up</a>
+</li>
+</nav>
+```
+
+</details>
+<details>
+<summary>
+With click
+</summary>
 
 ```php
 
 ```
+
+</details>
+
+<details>
+<summary>
+With press
+</summary>
+
+```php
+
+```
+
+</details>
+
+
 
 </details>
 
