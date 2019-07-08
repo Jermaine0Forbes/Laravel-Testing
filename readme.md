@@ -437,7 +437,7 @@ View Content
 
 
 ```
-php artisan make:dusk  LoginTest
+php artisan dusk:make  LoginTest
 ```
 
 </details>
