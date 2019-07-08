@@ -13,6 +13,8 @@
 - [assertArrayHasKey][a-arr-key]
 - [assertIsObject][a-obj]
 
+## Database
+
 ## Dusk
 - [how to install dusk][inst-dusk]
 - [how to generate a dusk test][gen-dusk]
@@ -38,6 +40,26 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+
+### tit
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- []()
+
+```php
+
+```
+
+</details>
+
+[go back :house:][home]
+
 
 
 ### how to fill out and submit a form
