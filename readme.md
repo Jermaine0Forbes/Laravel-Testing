@@ -869,8 +869,8 @@ in an object **assertIsObject** this is the best way to check if it is an object
 
 **In ProductTest**
 
-```
-<?php
+```php
+//<?php
 
 namespace Tests\Unit;
 
@@ -901,8 +901,8 @@ class ProductTest extends TestCase
 
 **In the controller**
 
-```
-<?php
+```php
+//<?php
 
 namespace App\Http\Controllers;
 
@@ -927,7 +927,7 @@ class ProductController extends Controller
 
 **In routes**
 
-```
+```php
 
 Route::prefix("products")->group(function(){
   Route::get('/', "ProductController@index");
@@ -968,19 +968,21 @@ composer require --dev laravel/dusk:"^4.0"
 php artisan dusk:install
 ```
 
-3. Now, this version of dusk will only work in chrome that has the version 70-73.
-So if you have a chrome version higher than that, then you have to uninstall  chrome.
+3. Now, this version of dusk **will only work** in chrome that has the version **70-73**.
+So if you have a chrome version higher than that, then *you have to uninstall  chrome*.
 So in the start menu type in "chrome", and right-click the icon to uninstall it.
 
 4. After chrome is uninstalled, go to this [link](https://www.slimjet.com/chrome/google-chrome-old-version.php) and install a version of chrome between 70-73
 
-5. After that chrome version installed, add this into the terminal
+5. In order to stop automatic updates of chrome, visit this [link](https://www.makeuseof.com/tag/stop-automatic-chrome-updates-windows/)
+
+6. After that chrome version installed, add this into the terminal
 
 ```
 php artisan dusk
 ```
 
-6. Hopefully, the test will pass
+7. Hopefully, the test will pass
 
 </details>
 
