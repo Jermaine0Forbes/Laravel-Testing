@@ -13,6 +13,9 @@
 - [assertArrayHasKey][a-arr-key]
 - [assertIsObject][a-obj]
 
+## Tabulator
+- [click on the header of the table][click-tb]
+
 ## Database
 - [check if a value is inside a database][check-db]
 - [assert if a value is not in a database][no-db]
@@ -26,6 +29,7 @@
 - [how to fill out and submit a form][fillout-dusk]
 - [the different types of clicking][diff-click]
 
+[click-tb]:#click-on-the-header-of-the-table
 [no-db]:#assert-if-a-value-is-not-in-a-database
 [check-db]:#check-if-a-value-is-inside-a-database
 [diff-click]:#the-different-types-of-clicking
@@ -47,6 +51,54 @@
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
 
+
+### click on the header of the table
+
+<details>
+<summary>
+View Content
+</summary>
+
+This is one of the ways you can use dusk to click on header column in tabulator to
+rearrange the order of the rows.
+
+
+#### What is happening
+
+1. You visit the home page
+2. Dusk clicks on a link that says table
+3. Dusk checks to see if there is a `#example-table` selector on the page
+4. Dusk checks to see if the value of **1** is in the first row of the table
+5. Dusk checks to see if the text "Id" is inside the selector
+6. Dusk clicks on the selector within variable **$idTitle**
+7. Dusk clicks on the selector again  within variable **$idTitle**
+8. Dusk checks to see if it doesn't see the value 1 in the first row
+
+
+```php
+$this->browse(function (Browser $browser) {
+
+  $firstRow = ".tabulator-table  .tabulator-row:first-child .tabulator-cell[tabulator-field='id']";
+  $idTitle =".tabulator-col.tabulator-sortable[tabulator-field='id'] ";
+
+    $browser->visit('/')
+            ->assertSee('hello world')
+            ->clickLink("table")
+            ->assertPresent("#example-table")
+            ->waitFor(".tabulator-cell")
+            ->assertSeeIn($firstRow,1)
+            ->assertSeeIn($idTitle,"Id")
+            ->click($idTitle)
+            ->click($idTitle)
+            ->assertDontSeeIn($firstRow,1);
+});
+}
+
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### assert if a value is not in a database
