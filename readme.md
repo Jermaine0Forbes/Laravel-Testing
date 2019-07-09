@@ -63,7 +63,7 @@ View Content
 **reference**
 - [using the mouse](https://laravel.com/docs/5.6/dusk#using-the-mouse)
 
-If you want to move the tabulator column to the right, you would use the **dusk** method
+**Overview:** If you want to move the tabulator column to the right, you would use the **dusk** method
 `$browser->dragRight($selector, $number)`. But, to check if the width has changed when you
 used the method you would have to use of the methods from PHPUnit's Assertions
 
@@ -73,11 +73,10 @@ used the method you would have to use of the methods from PHPUnit's Assertions
 2. Dusk asserts that it sees the selector `#example-table`
 3. Dusk waits for the selector `.tabulator-cell` to appear
 4. Dusk returns a value into **$oldWidth** from a style attribute that is from the selector **$idTitle**
-5. Dusk revisits the `/table` url, checks for the selector `#example-table` & `.tabulator-cell`
-6. Dusk drags the selector **idColHandle**, to the right 10px
-7. Dusk returns a value into **newWidth** from a style attribute that is from the selector **$idTitle**
-8. We use the assertion class to call the `assertNotEquals($expected, $actual)`, in order to prove
-style values have changed because you have dragged the column to the right
+5. Dusk drags the selector **$idColHandle**, to the right 10px
+6. Dusk returns a value into **$newWidth** from a style attribute that is from the selector **$idTitle**
+7. We use the assertion class to call the `assertNotEquals($expected, $actual)`, in order to prove
+the style values have changed because you have dragged the column to the right
 
 
 ```php
@@ -96,13 +95,11 @@ public function testDragCol()
 
 
 
-        $newWidth = $browser->visit('/table')//5
-            ->assertPresent("#example-table")//5
-            ->waitFor(".tabulator-cell")//5
-            ->dragRight($idColHandle,10)//6
-            ->attribute($idTitle, "style");//7
+        $newWidth = $browser->dragRight($idColHandle,10)//5
+            ->attribute($idTitle, "style");//6
 
-            Assert::assertNotEquals($oldWidth, $newWidth);//8
+
+            Assert::assertNotEquals($oldWidth, $newWidth);//7
 
 
   });
