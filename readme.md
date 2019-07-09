@@ -15,6 +15,7 @@
 
 ## Tabulator
 - [click on the header of the table][click-tb]
+- [drag a column to the right ][drag-tb]
 
 ## Database
 - [check if a value is inside a database][check-db]
@@ -29,6 +30,7 @@
 - [how to fill out and submit a form][fillout-dusk]
 - [the different types of clicking][diff-click]
 
+[drag-tb]:#drag-a-column-to-the-right
 [click-tb]:#click-on-the-header-of-the-table
 [no-db]:#assert-if-a-value-is-not-in-a-database
 [check-db]:#check-if-a-value-is-inside-a-database
@@ -50,6 +52,66 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+### drag a column to the right
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [using the mouse](https://laravel.com/docs/5.6/dusk#using-the-mouse)
+
+If you want to move the tabulator column to the right, you would use the **dusk** method
+`$browser->dragRight($selector, $number)`. But, to check if the width has changed when you
+used the method you would have to use of the methods from PHPUnit's Assertions
+
+#### What is happening
+
+1. Dusk visits the `/table` url
+2. Dusk asserts that it sees the selector `#example-table`
+3. Dusk waits for the selector `.tabulator-cell` to appear
+4. Dusk returns a value into **$oldWidth** from a style attribute that is from the selector **$idTitle**
+5. Dusk revisits the `/table` url, checks for the selector `#example-table` & `.tabulator-cell`
+6. Dusk drags the selector **idColHandle**, to the right 10px
+7. Dusk returns a value into **newWidth** from a style attribute that is from the selector **$idTitle**
+8. We use the assertion class to call the `assertNotEquals($expected, $actual)`, in order to prove
+style values have changed because you have dragged the column to the right
+
+
+```php
+public function testDragCol()
+{
+  $this->browse(function (Browser $browser) {
+    $idTitle =".tabulator-col.tabulator-sortable[tabulator-field='id'] ";
+    $idColHandle =".tabulator-col.tabulator-sortable[tabulator-field='id'] .tabulator-col-resize-handle";
+
+
+      $oldWidth =  
+            $browser->visit('/table') //1
+            ->assertPresent("#example-table")//2
+            ->waitFor(".tabulator-cell")//3
+            ->attribute($idTitle, "style");//4
+
+
+
+        $newWidth = $browser->visit('/table')//5
+            ->assertPresent("#example-table")//5
+            ->waitFor(".tabulator-cell")//5
+            ->dragRight($idColHandle,10)//6
+            ->attribute($idTitle, "style");//7
+
+            Assert::assertNotEquals($oldWidth, $newWidth);//8
+
+
+  });
+}
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### click on the header of the table
