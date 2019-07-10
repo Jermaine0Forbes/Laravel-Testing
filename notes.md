@@ -8,3 +8,4 @@
 - trigger a screen shot after every test
 - capture a javascript error with dusk
 - laravel race condition
+- try to find dusk fail logs
