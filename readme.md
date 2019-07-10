@@ -7,11 +7,11 @@
 - [how to generate fake data][gen-data]
 
 ## Assertions
-- [assertStatus][a-status]
-- [assertSee][a-see]
-- [assertContains][a-contains]
 - [assertArrayHasKey][a-arr-key]
+- [assertContains][a-contains]
 - [assertIsObject][a-obj]
+- [assertSee][a-see]
+- [assertStatus][a-status]
 
 ## Tabulator
 - [click on the header of the table][click-tb]
@@ -65,9 +65,9 @@ View Content
 
 **Overview:** If you want to move the tabulator column to the right, you would use the **dusk** method
 `$browser->dragRight($selector, $number)`. But, to check if the width has changed when you
-used the method you would have to use of the methods from PHPUnit's Assertions
+used the method you would have to use one of the methods from PHPUnit's Assertions
 
-#### What is happening
+#### What is happening?
 
 1. Dusk visits the `/table` url
 2. Dusk asserts that it sees the selector `#example-table`
