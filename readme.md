@@ -12,6 +12,8 @@
 - [assertIsObject][a-obj]
 - [assertSee][a-see]
 - [assertStatus][a-status]
+- [assertInputValue][a-inpt-val]
+
 
 ## Tabulator
 - [click on the header of the table][click-tb]
@@ -23,13 +25,17 @@
 
 ## Dusk
 - [how to install dusk][inst-dusk]
-- [how to generate a dusk test][gen-dusk]
+- [how to make a dusk test][gen-dusk]
 - [how to click on a link][click-dusk]
 - [how to type in information into an input element][type-dusk]
 - [how to click on the submit button from a form][click-dusk]
 - [how to fill out and submit a form][fillout-dusk]
 - [the different types of clicking][diff-click]
+- [how to resize the browser][size-dusk]
 
+
+[size-dusk]:#how-to-resize-the-browser
+[a-inpt-val]:assertInputValue
 [drag-tb]:#drag-a-column-to-the-right
 [click-tb]:#click-on-the-header-of-the-table
 [no-db]:#assert-if-a-value-is-not-in-a-database
@@ -40,7 +46,7 @@
 [type-dusk]:#how-to-type-information-into-a-field
 [a-contains]:#assertContains
 [click-dusk]:#how-to-click-on-a-link
-[gen-dusk]:#how-to-generate-a-dusk-test
+[gen-dusk]:#how-to-make-a-dusk-test
 [a-arr-key]:#assertArrayHasKey
 [a-see]:#assertSee
 [a-obj]:#assertIsObject
@@ -52,6 +58,62 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+### how to resize browser
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.6/dusk#environment-handling)
+
+**syntax**
+
+`$browser->resize($width,$height)`
+
+```php
+$this->browse(function (Browser $browser) {
+    $browser->resize(375,812)
+            ->visit('/')
+            ->screenshot("mobile-test")
+            ->assertSee('login');
+});
+```
+
+</details>
+
+[go back :house:][home]
+
+### assertInputValue
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [laravel](https://laravel.com/docs/5.6/dusk#assert-input-value)
+
+**syntax**
+
+`$browser->assertInputValue($field, $value)`
+
+**Note:** this is a special function only used in Dusk
+
+```php
+$this->browse(function (Browser $browser) {
+    $browser->visit('/')
+            ->clickLink('sign up')
+            ->type("name", "jermaine")
+            ->assertInputValue("name","jermaine");// will return true if dusk sees the name inside
+});
+```
+
+</details>
+
+[go back :house:][home]
 
 ### drag a column to the right
 
@@ -773,7 +835,7 @@ class LoginTest extends DuskTestCase
 
 
 
-### how to generate a dusk test
+### how to make a dusk test
 
 <details>
 <summary>
