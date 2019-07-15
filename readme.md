@@ -5,6 +5,7 @@
 - [what is the difference between feature and unit][fet-unit]
 - [how to create a simple HTTP request][http-req]
 - [how to generate fake data][gen-data]
+- [how to log a laravel test][log-test]
 
 ## Assertions
 - [assertArrayHasKey][a-arr-key]
@@ -32,8 +33,11 @@
 - [how to fill out and submit a form][fillout-dusk]
 - [the different types of clicking][diff-click]
 - [how to resize the browser][size-dusk]
+- [how to take a screenshot][screen-dusk]
 
 
+[log-test]:#how-to-log-a-laravel-test
+[screen-dusk]:#how-to-take-a-screenshot
 [size-dusk]:#how-to-resize-the-browser
 [a-inpt-val]:assertInputValue
 [drag-tb]:#drag-a-column-to-the-right
@@ -59,6 +63,59 @@
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
 
+### how to log a laravel test
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [Can Laravel Dusk test results be logged?](https://stackoverflow.com/questions/50742581/can-laravel-dusk-test-results-be-logged)
+
+**Note:** --log-junit, logs the information in an **xml** format. While `--log-teamcity` logs the information in a different format
+
+```
+php artisan dusk --log-junit junit.log
+php artisan dusk --log-teamcity teamcity.log
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to take a screenshot
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [How to take Browser Screenshots in Laravel Dusk](https://www.5balloons.info/how-to-take-browser-screenshots-in-laravel-dusk/)
+
+**syntax**
+
+`$browser->screenshot($insertName)`
+
+#### Example
+```php
+$this->browse(function (Browser $browser) {
+
+    $date = Carbon::now();
+    $browser->resize(375,812)
+            ->visit('/')
+            ->screenshot("mobile-test")//dusk will create a screen shot called mobile-test.png
+            ->assertSee('login');
+});
+```
+
+</details>
+
+[go back :house:][home]
+
+
 ### how to resize browser
 
 <details>
@@ -75,7 +132,7 @@ View Content
 
 ```php
 $this->browse(function (Browser $browser) {
-    $browser->resize(375,812)
+    $browser->resize(375,812)//dusk will first resize the browser to these dimensions
             ->visit('/')
             ->screenshot("mobile-test")
             ->assertSee('login');
