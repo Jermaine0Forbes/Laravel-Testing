@@ -6,6 +6,7 @@
 - [how to create a simple HTTP request][http-req]
 - [how to generate fake data][gen-data]
 - [how to log a laravel test][log-test]
+- [how to only run a specific Dusk test?][group-tests]
 
 ## Assertions
 - [assertArrayHasKey][a-arr-key]
@@ -34,8 +35,10 @@
 - [the different types of clicking][diff-click]
 - [how to resize the browser][size-dusk]
 - [how to take a screenshot][screen-dusk]
+- [how to view dusk browser testing][view-testing]
 
-
+[group-tests]:#how-to-group-tests
+[view-testing]:#how-to-view-dusk-browser-testing
 [log-test]:#how-to-log-a-laravel-test
 [screen-dusk]:#how-to-take-a-screenshot
 [size-dusk]:#how-to-resize-the-browser
@@ -62,6 +65,92 @@
 [run-unit]:#how-to-run-php-unit
 [simple-test]:#how-to-create-a-simple-laravel-test
 [home]:#laravel-testing
+
+
+### how to group tests
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [How to only run a specific Dusk test?](https://laracasts.com/discuss/channels/laravel/how-to-only-run-a-specific-dusk-test?page=1)
+
+1. If you want to run a specific test or group a number of tests together, you can
+add the `@group`  annotation before a test method.
+
+2. Here is an example
+
+```php
+/**
+ * A basic browser test example.
+ * @group example
+ * @return void
+ */
+public function testBasicExample()
+{
+    $this->browse(function (Browser $browser) {
+        $browser->visit('/')
+                ->assertSee('hello');
+                // ->assertSee('Laravel');
+    });
+}
+
+/**
+* @group example
+*
+*/
+public function testRightClick(){
+  $this->browse(function (Browser $browser) {
+      $browser->visit('/')
+              ->screenshot('see-right')
+              ->assertSee('hello');
+              // ->assertSee('Laravel');
+  });
+
+}
+```
+
+3. Now run in the terminal
+
+```
+php artisan dusk --group example
+```
+
+4. So two of those tests will run
+
+</details>
+
+[go back :house:][home]
+
+
+
+
+### how to view dusk browser testing
+
+<details>
+<summary>
+View Content
+</summary>
+
+
+1. Go to `test/DuskTestCase.php`
+
+2. Around line **35** comment out the name `--headless`
+
+```php
+$options = (new ChromeOptions)->addArguments([
+    '--disable-gpu',
+    // '--headless',
+    '--window-size=1920,1080',
+]);
+```
+
+</details>
+
+[go back :house:][home]
+
 
 ### how to log a laravel test
 
